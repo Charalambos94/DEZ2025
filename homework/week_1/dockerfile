@@ -1,0 +1,18 @@
+FROM python:3.12.8
+
+RUN apt-get install wget
+RUN pip install pandas sqlalchemy psycopg2 pyarrow psycopg2-binary
+
+# Download Datasets
+WORKDIR /app
+RUN mkdir /app/datasets 
+WORKDIR /app/datasets
+RUN wget https://github.com/DataTalksClub/nyc-tlc-data/releases/download/green/green_tripdata_2019-10.csv.gz
+RUN wget https://github.com/DataTalksClub/nyc-tlc-data/releases/download/misc/taxi_zone_lookup.csv
+RUN gzip -d green_tripdata_2019-10.csv.gz
+
+
+WORKDIR /app
+COPY  upload_data.py ingest_data.py
+
+ENTRYPOINT ["python","ingest_data.py"]
