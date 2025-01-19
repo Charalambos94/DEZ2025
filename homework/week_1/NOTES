@@ -1,0 +1,9 @@
+Run using:
+ - if you need to pass load data and get results 
+ ```
+ docker build -t test:01 . && docker run -it  --network=dez_network test:01 --user postgres --password postgres --host db --port 5432 --db ny_taxi
+ ```
+ - If you need to just get results 
+ ```
+ docker build -t test:01 . && docker run -it  --network=dez_network test:01 --user postgres --password postgres --host db --port 5432 --db ny_taxi --load_data False
+ ```
